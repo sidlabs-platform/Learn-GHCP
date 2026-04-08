@@ -24,7 +24,7 @@ const courses = await getCollection('courses', ({ data }) =>
             difficulty={course.data.difficulty}
             track={course.data.track}
             estimatedMinutes={course.data.estimatedMinutes}
-            slug={`/Learn-GHCP/courses/${course.id.replace(/\.mdx?$/, '')}`}
+            slug={course.id.replace(/\.mdx?$/, '')}
           />
         ))}
       </div>

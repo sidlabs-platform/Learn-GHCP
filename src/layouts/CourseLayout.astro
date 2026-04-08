@@ -26,6 +26,17 @@ const {
   lastVerified,
 } = Astro.props;
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Build a lookup map from prerequisite name → full course path
+const allCourses = await getCollection('courses');
+const prereqMap = new Map<string, string>();
+for (const c of allCourses) {
+  const courseId = c.id.replace(/\.mdx?$/, '');
+  const fileName = courseId.split('/').pop()!;
+  prereqMap.set(fileName, `${base}/courses/${courseId}/`);
+}
+
 // Map difficulty to display props
 const difficultyConfig = {
   beginner: { icon: '🟢', label: 'Beginner', class: 'badge-beginner' },
@@ -124,7 +135,7 @@ const courseSlug = currentUrl.split('/courses/')[1]?.split('/')[0] || '';
             <ul class="prerequisites-list">
               {prerequisites.map((prereq) => (
                 <li>
-                  <a href={`/courses/${prereq.toLowerCase().replace(/\s+/g, '-')}`} class="prerequisite-link">
+                  <a href={prereqMap.get(prereq) || `${base}/courses/${prereq}/`} class="prerequisite-link">
                     {prereq}
                   </a>
                 </li>

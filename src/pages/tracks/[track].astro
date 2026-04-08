@@ -82,7 +82,7 @@ const advanced = allCourses.filter((c) => c.data.difficulty === "advanced");
               difficulty={course.data.difficulty}
               track={course.data.track}
               estimatedMinutes={course.data.estimatedMinutes}
-              slug={`/Learn-GHCP/courses/${course.id.replace(/\.mdx?$/, "")}`}
+              slug={course.id.replace(/\.mdx?$/, "")}
             />
           ))}
         </div>
@@ -100,7 +100,7 @@ const advanced = allCourses.filter((c) => c.data.difficulty === "advanced");
               difficulty={course.data.difficulty}
               track={course.data.track}
               estimatedMinutes={course.data.estimatedMinutes}
-              slug={`/Learn-GHCP/courses/${course.id.replace(/\.mdx?$/, "")}`}
+              slug={course.id.replace(/\.mdx?$/, "")}
             />
           ))}
         </div>
@@ -118,7 +118,7 @@ const advanced = allCourses.filter((c) => c.data.difficulty === "advanced");
               difficulty={course.data.difficulty}
               track={course.data.track}
               estimatedMinutes={course.data.estimatedMinutes}
-              slug={`/Learn-GHCP/courses/${course.id.replace(/\.mdx?$/, "")}`}
+              slug={course.id.replace(/\.mdx?$/, "")}
             />
           ))}
         </div>

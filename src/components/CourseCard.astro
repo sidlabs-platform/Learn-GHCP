@@ -12,6 +12,8 @@ interface Props {
 
 const { title, description, difficulty, track, estimatedMinutes, slug } =
   Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <div class="course-card">
@@ -23,7 +25,7 @@ const { title, description, difficulty, track, estimatedMinutes, slug } =
   <p class="card-description">{description}</p>
   <div class="card-footer">
     <span class="time-estimate">⏱️ {estimatedMinutes} min</span>
-    <a href={`/Learn-GHCP/courses/${slug}/`} class="card-link">
+    <a href={`${base}/courses/${slug}/`} class="card-link">
       Learn more →
     </a>
   </div>

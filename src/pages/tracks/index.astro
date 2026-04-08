@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const tracks = [
   {
     slug: "copilot-cli",
@@ -67,7 +69,7 @@ const tracks = [
     <section class="tracks-grid">
       {
         tracks.map((track) => (
-          <a href={`/Learn-GHCP/tracks/${track.slug}/`} class="track-card">
+          <a href={`${base}/tracks/${track.slug}/`} class="track-card">
             <div class="track-emoji">{track.emoji}</div>
             <h3 class="track-title">{track.title}</h3>
             <p class="track-description">{track.description}</p>

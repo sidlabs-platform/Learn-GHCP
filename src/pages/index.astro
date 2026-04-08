@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SearchBar from "../components/SearchBar.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout title="Learn GitHub Copilot">
@@ -24,17 +26,17 @@ import SearchBar from "../components/SearchBar.astro";
     <section class="entry-points">
       <h2>Choose Your Starting Point</h2>
       <div class="entry-points-grid">
-        <a href="/Learn-GHCP/courses/beginner/" class="entry-card beginner">
+        <a href={`${base}/courses/beginner/`} class="entry-card beginner">
           <div class="entry-emoji">🟢</div>
           <h3>I'm a Beginner</h3>
           <p>Start your journey with the basics</p>
         </a>
-        <a href="/Learn-GHCP/courses/intermediate/" class="entry-card intermediate">
+        <a href={`${base}/courses/intermediate/`} class="entry-card intermediate">
           <div class="entry-emoji">🟡</div>
           <h3>I'm Intermediate</h3>
           <p>Deepen your skills and expertise</p>
         </a>
-        <a href="/Learn-GHCP/courses/advanced/" class="entry-card advanced">
+        <a href={`${base}/courses/advanced/`} class="entry-card advanced">
           <div class="entry-emoji">🔴</div>
           <h3>I'm Advanced</h3>
           <p>Master complex patterns and workflows</p>
@@ -46,22 +48,17 @@ import SearchBar from "../components/SearchBar.astro";
     <section class="browse-section">
       <h2>Browse & Explore</h2>
       <div class="browse-grid">
-        <a href="/Learn-GHCP/tracks/" class="browse-card">
+        <a href={`${base}/tracks/`} class="browse-card">
           <div class="browse-icon">🚂</div>
           <h3>Browse by Track</h3>
           <p>Learn structured learning paths across different Copilot topics</p>
         </a>
-        <a href="/Learn-GHCP/industry/" class="browse-card">
-          <div class="browse-icon">🏢</div>
-          <h3>Browse by Industry</h3>
-          <p>Find courses tailored to your industry and use cases</p>
-        </a>
-        <a href="/Learn-GHCP/persona/" class="browse-card">
+        <a href={`${base}/tracks/persona/`} class="browse-card">
           <div class="browse-icon">👤</div>
           <h3>Browse by Persona</h3>
           <p>Explore learning paths by role and responsibility</p>
         </a>
-        <a href="/Learn-GHCP/technology/" class="browse-card">
+        <a href={`${base}/tracks/technology/`} class="browse-card">
           <div class="browse-icon">⚙️</div>
           <h3>Browse by Technology</h3>
           <p>Learn Copilot for your preferred tech stack</p>
@@ -73,17 +70,17 @@ import SearchBar from "../components/SearchBar.astro";
     <section class="quick-links">
       <h2>Quick Access</h2>
       <div class="quick-links-grid">
-        <a href="/Learn-GHCP/whats-new/" class="quick-link-card">
+        <a href={`${base}/whats-new/`} class="quick-link-card">
           <div class="link-icon">✨</div>
           <h4>What's New</h4>
           <p>Latest updates and new courses</p>
         </a>
-        <a href="/Learn-GHCP/features/" class="quick-link-card">
+        <a href={`${base}/features/`} class="quick-link-card">
           <div class="link-icon">🔍</div>
           <h4>Feature Explorer</h4>
           <p>Discover all Copilot features</p>
         </a>
-        <a href="/Learn-GHCP/health/" class="quick-link-card">
+        <a href={`${base}/health/`} class="quick-link-card">
           <div class="link-icon">📊</div>
           <h4>Health Dashboard</h4>
           <p>Platform status and metrics</p>

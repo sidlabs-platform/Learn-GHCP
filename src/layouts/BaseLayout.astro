@@ -7,6 +7,7 @@ interface Props {
 }
 
 const { title, description = 'Learn GitHub Copilot - Master AI-assisted coding skills through guided tracks and hands-on lessons.' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <!DOCTYPE html>
@@ -23,7 +24,7 @@ const { title, description = 'Learn GitHub Copilot - Master AI-assisted coding s
     <title>{title} | Learn GitHub Copilot</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
   </head>
   
   <body>
@@ -34,7 +35,7 @@ const { title, description = 'Learn GitHub Copilot - Master AI-assisted coding s
     <header class="site-header">
       <div class="header-container">
         <div class="header-logo">
-          <a href="/" aria-label="Learn GitHub Copilot - Home">
+          <a href={`${base}/`} aria-label="Learn GitHub Copilot - Home">
             <svg 
               class="logo-icon" 
               width="32" 
@@ -53,11 +54,11 @@ const { title, description = 'Learn GitHub Copilot - Master AI-assisted coding s
 
         <nav class="header-nav" aria-label="Main navigation">
           <ul class="nav-list">
-            <li><a href="/" class="nav-link">Home</a></li>
-            <li><a href="/tracks" class="nav-link">Tracks</a></li>
-            <li><a href="/features" class="nav-link">Features</a></li>
-            <li><a href="/whats-new" class="nav-link">What's New</a></li>
-            <li><a href="/health" class="nav-link">Health</a></li>
+            <li><a href={`${base}/`} class="nav-link">Home</a></li>
+            <li><a href={`${base}/tracks`} class="nav-link">Tracks</a></li>
+            <li><a href={`${base}/features`} class="nav-link">Features</a></li>
+            <li><a href={`${base}/whats-new`} class="nav-link">What's New</a></li>
+            <li><a href={`${base}/health`} class="nav-link">Health</a></li>
           </ul>
         </nav>
 
