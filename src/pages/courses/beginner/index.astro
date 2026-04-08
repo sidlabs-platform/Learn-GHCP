@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CourseCard from '../../../components/CourseCard.astro';
+import { getCollection } from 'astro:content';
+
+const courses = await getCollection('courses', ({ data }) =>
+  data.published && data.difficulty === 'beginner'
+);
+---
+
+<BaseLayout title="Beginner Courses" description="Start your GitHub Copilot journey with beginner-friendly, step-by-step courses.">
+  <div class="listing-container">
+    <header class="listing-header">
+      <h1>🟢 Beginner Courses</h1>
+      <p>Step-by-step guides for first-time Copilot users. Every keystroke explained.</p>
+    </header>
+
+    {courses.length > 0 ? (
+      <div class="courses-grid">
+        {courses.map((course) => (
+          <CourseCard
+            title={course.data.title}
+            description={course.data.description}
+            difficulty={course.data.difficulty}
+            track={course.data.track}
+            estimatedMinutes={course.data.estimatedMinutes}
+            slug={`/Learn-GHCP/courses/${course.id.replace(/\.mdx?$/, '')}`}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="no-courses">Beginner courses are being generated. Check back soon!</p>
+    )}
+  </div>
+
+  <style>
+    .listing-container { max-width: 1100px; margin: 0 auto; padding: var(--space-xl); }
+    .listing-header { margin-bottom: var(--space-2xl); }
+    .listing-header h1 { font-size: var(--font-size-3xl); margin-bottom: var(--space-sm); }
+    .listing-header p { color: var(--color-muted); font-size: var(--font-size-lg); }
+    .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-lg); }
+    .no-courses { color: var(--color-muted); font-style: italic; }
+  </style>
+</BaseLayout>
