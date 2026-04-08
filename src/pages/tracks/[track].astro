@@ -1,0 +1,139 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CourseCard from "../../components/CourseCard.astro";
+import { getCollection } from "astro:content";
+
+const trackMetaMap: Record<string, { title: string; emoji: string; description: string }> = {
+  "copilot-cli": {
+    title: "Copilot CLI — Every Command",
+    emoji: "⌨️",
+    description: "Master the GitHub Copilot CLI from first install to autopilot mode and advanced scripting.",
+  },
+  skills: {
+    title: "Copilot Agent Skills",
+    emoji: "🤖",
+    description: "Learn to discover, create, and chain custom SKILL.md definitions that extend Copilot's capabilities.",
+  },
+  plugins: {
+    title: "Copilot CLI Plugins & Extensions",
+    emoji: "🔌",
+    description: "Build custom Copilot CLI extensions, project-scoped plugins, and full agent plugin bundles.",
+  },
+  agents: {
+    title: "Copilot Agents & Agentic Workflows",
+    emoji: "🔄",
+    description: "From assigning issues to Copilot through multi-agent orchestration and self-healing CI pipelines.",
+  },
+  mcp: {
+    title: "MCP (Model Context Protocol)",
+    emoji: "📡",
+    description: "Connect Copilot to external tools and databases via MCP — from basics to production HTTP servers.",
+  },
+  persona: {
+    title: "Copilot for Every Persona",
+    emoji: "👥",
+    description: "Role-specific hands-on courses for developers, DevOps engineers, data scientists, security engineers, and architects.",
+  },
+  technology: {
+    title: "Copilot Across Technologies",
+    emoji: "🛠️",
+    description: "IDE-specific guides, methodologies (TDD/BDD), prompt engineering, testing, code review, refactoring, and CI/CD.",
+  },
+};
+
+export function getStaticPaths() {
+  return [
+    { params: { track: "copilot-cli" } },
+    { params: { track: "skills" } },
+    { params: { track: "plugins" } },
+    { params: { track: "agents" } },
+    { params: { track: "mcp" } },
+    { params: { track: "persona" } },
+    { params: { track: "technology" } },
+  ];
+}
+
+const { track } = Astro.params;
+const meta = trackMetaMap[track!] ?? { title: track, emoji: "📚", description: "" };
+
+const allCourses = await getCollection("courses", ({ data }) => data.published && data.track === track);
+
+const beginner = allCourses.filter((c) => c.data.difficulty === "beginner");
+const intermediate = allCourses.filter((c) => c.data.difficulty === "intermediate");
+const advanced = allCourses.filter((c) => c.data.difficulty === "advanced");
+---
+
+<BaseLayout title={meta.title} description={meta.description}>
+  <main class="track-page">
+    <header class="track-header">
+      <span class="track-emoji">{meta.emoji}</span>
+      <h1>{meta.title}</h1>
+      <p>{meta.description}</p>
+    </header>
+
+    {beginner.length > 0 && (
+      <section class="level-section">
+        <h2>🟢 Beginner</h2>
+        <div class="courses-grid">
+          {beginner.map((course) => (
+            <CourseCard
+              title={course.data.title}
+              description={course.data.description}
+              difficulty={course.data.difficulty}
+              track={course.data.track}
+              estimatedMinutes={course.data.estimatedMinutes}
+              slug={`/Learn-GHCP/courses/${course.id.replace(/\.mdx?$/, "")}`}
+            />
+          ))}
+        </div>
+      </section>
+    )}
+
+    {intermediate.length > 0 && (
+      <section class="level-section">
+        <h2>🟡 Intermediate</h2>
+        <div class="courses-grid">
+          {intermediate.map((course) => (
+            <CourseCard
+              title={course.data.title}
+              description={course.data.description}
+              difficulty={course.data.difficulty}
+              track={course.data.track}
+              estimatedMinutes={course.data.estimatedMinutes}
+              slug={`/Learn-GHCP/courses/${course.id.replace(/\.mdx?$/, "")}`}
+            />
+          ))}
+        </div>
+      </section>
+    )}
+
+    {advanced.length > 0 && (
+      <section class="level-section">
+        <h2>🔴 Advanced</h2>
+        <div class="courses-grid">
+          {advanced.map((course) => (
+            <CourseCard
+              title={course.data.title}
+              description={course.data.description}
+              difficulty={course.data.difficulty}
+              track={course.data.track}
+              estimatedMinutes={course.data.estimatedMinutes}
+              slug={`/Learn-GHCP/courses/${course.id.replace(/\.mdx?$/, "")}`}
+            />
+          ))}
+        </div>
+      </section>
+    )}
+  </main>
+
+  <style>
+    .track-page { max-width: 1100px; margin: 0 auto; padding: var(--space-xl); }
+    .track-header { text-align: center; margin-bottom: var(--space-3xl); }
+    .track-emoji { font-size: 3rem; display: block; margin-bottom: var(--space-md); }
+    .track-header h1 { font-size: var(--font-size-3xl); margin-bottom: var(--space-sm); }
+    .track-header p { color: var(--color-muted); font-size: var(--font-size-lg); max-width: 700px; margin: 0 auto; }
+    .level-section { margin-bottom: var(--space-3xl); }
+    .level-section h2 { font-size: var(--font-size-2xl); margin-bottom: var(--space-lg); }
+    .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-lg); }
+  </style>
+</BaseLayout>
