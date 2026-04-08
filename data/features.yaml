@@ -1,0 +1,154 @@
+# Feature Registry - Living catalog of all GitHub Copilot features
+# Auto-updated by the Feature Discovery Agent
+#
+# Schema:
+#   id: unique identifier for the feature
+#   name: human-readable feature name
+#   description: brief description of functionality
+#   category: core|cli|agents|extensibility|github
+#   status: active|inactive|deprecated
+#   discoveredAt: ISO 8601 date when feature was first catalogued
+#   lastVerified: ISO 8601 timestamp when feature was last verified, or null
+#   sources: array of source IDs where feature is documented
+#   relatedFeatures: array of related feature IDs
+
+features:
+  - id: code-completions
+    name: "Code Completions"
+    description: "AI-powered inline code suggestions as you type"
+    category: core
+    status: active
+    discoveredAt: "2024-01-01"
+    lastVerified: null
+    sources: [github-copilot-docs]
+    relatedFeatures: [chat, ghost-text]
+
+  - id: copilot-chat
+    name: "Copilot Chat"
+    description: "Conversational AI assistant integrated into IDE"
+    category: core
+    status: active
+    discoveredAt: "2024-01-01"
+    lastVerified: null
+    sources: [github-copilot-docs]
+    relatedFeatures: [code-completions, inline-chat]
+
+  - id: copilot-cli
+    name: "Copilot CLI"
+    description: "Terminal-based AI assistant for command-line workflows"
+    category: cli
+    status: active
+    discoveredAt: "2024-01-01"
+    lastVerified: null
+    sources: [copilot-cli-releases, github-copilot-docs]
+    relatedFeatures: [plan-mode, autopilot-mode, cli-plugins]
+
+  - id: plan-mode
+    name: "Plan Mode"
+    description: "Structured planning mode in Copilot CLI for multi-step tasks"
+    category: cli
+    status: active
+    discoveredAt: "2024-06-01"
+    lastVerified: null
+    sources: [copilot-cli-releases]
+    relatedFeatures: [copilot-cli, autopilot-mode]
+
+  - id: autopilot-mode
+    name: "Autopilot Mode"
+    description: "Fully autonomous execution mode in Copilot CLI"
+    category: cli
+    status: active
+    discoveredAt: "2024-06-01"
+    lastVerified: null
+    sources: [copilot-cli-releases]
+    relatedFeatures: [copilot-cli, plan-mode]
+
+  - id: copilot-agents
+    name: "Copilot Agents"
+    description: "Autonomous AI agents that can be assigned GitHub Issues and create PRs"
+    category: agents
+    status: active
+    discoveredAt: "2024-09-01"
+    lastVerified: null
+    sources: [github-copilot-docs, github-blog]
+    relatedFeatures: [copilot-chat, agent-mode]
+
+  - id: agent-mode
+    name: "Agent Mode"
+    description: "Agentic mode in Copilot Chat for multi-step autonomous coding"
+    category: agents
+    status: active
+    discoveredAt: "2024-10-01"
+    lastVerified: null
+    sources: [github-copilot-docs]
+    relatedFeatures: [copilot-agents, copilot-chat]
+
+  - id: copilot-skills
+    name: "Copilot Skills"
+    description: "Custom skill definitions via SKILL.md for extending Copilot capabilities"
+    category: extensibility
+    status: active
+    discoveredAt: "2024-08-01"
+    lastVerified: null
+    sources: [github-copilot-docs]
+    relatedFeatures: [copilot-agents, cli-plugins]
+
+  - id: cli-plugins
+    name: "CLI Plugins & Extensions"
+    description: "Custom extensions for Copilot CLI with hot-reload support"
+    category: extensibility
+    status: active
+    discoveredAt: "2024-07-01"
+    lastVerified: null
+    sources: [copilot-cli-releases]
+    relatedFeatures: [copilot-cli, copilot-skills]
+
+  - id: mcp-integration
+    name: "MCP (Model Context Protocol)"
+    description: "Connect Copilot to external tools and data sources via MCP servers"
+    category: extensibility
+    status: active
+    discoveredAt: "2024-08-01"
+    lastVerified: null
+    sources: [copilot-mcp-docs, github-copilot-docs]
+    relatedFeatures: [copilot-cli, cli-plugins]
+
+  - id: ghost-text
+    name: "Ghost Text (Inline Suggestions)"
+    description: "Gray text inline suggestions that can be accepted with Tab"
+    category: core
+    status: active
+    discoveredAt: "2024-01-01"
+    lastVerified: null
+    sources: [github-copilot-docs]
+    relatedFeatures: [code-completions]
+
+  - id: inline-chat
+    name: "Inline Chat"
+    description: "Chat with Copilot directly in the editor at cursor position"
+    category: core
+    status: active
+    discoveredAt: "2024-03-01"
+    lastVerified: null
+    sources: [github-copilot-docs]
+    relatedFeatures: [copilot-chat]
+
+  - id: copilot-pr-summaries
+    name: "PR Summaries"
+    description: "Auto-generated pull request descriptions and summaries"
+    category: github
+    status: active
+    discoveredAt: "2024-05-01"
+    lastVerified: null
+    sources: [github-copilot-docs, github-blog]
+    relatedFeatures: [copilot-agents]
+
+  - id: copilot-code-review
+    name: "Copilot Code Review"
+    description: "AI-powered code review suggestions on pull requests"
+    category: github
+    status: active
+    discoveredAt: "2024-10-01"
+    lastVerified: null
+    sources: [github-copilot-docs, github-blog]
+    relatedFeatures: [copilot-agents, copilot-pr-summaries]

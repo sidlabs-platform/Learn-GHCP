@@ -1,0 +1,360 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="What's New">
+  <main class="whats-new-page">
+    <section class="header">
+      <h1>What's New</h1>
+      <p class="subtitle">Latest updates to the learning platform</p>
+    </section>
+
+    <section class="content">
+      <div class="auto-generated-notice">
+        <div class="notice-icon">✨</div>
+        <div class="notice-content">
+          <h2>Auto-Generated & Always Up-to-Date</h2>
+          <p>
+            This learning platform is powered by AI agents that automatically discover, verify,
+            and organize GitHub Copilot content.
+          </p>
+          <p>
+            <strong>Courses are auto-generated and updated daily</strong> by our intelligent
+            publishing pipeline, ensuring you always have access to the latest features, best
+            practices, and learning resources.
+          </p>
+        </div>
+      </div>
+
+      <div class="updates-grid">
+        <div class="update-card">
+          <div class="update-icon">🚀</div>
+          <h3>Real-Time Content Discovery</h3>
+          <p>
+            New features, APIs, and capabilities are automatically detected from official sources
+            and integrated into the curriculum.
+          </p>
+        </div>
+
+        <div class="update-card">
+          <div class="update-icon">🔍</div>
+          <h3>Continuous Verification</h3>
+          <p>
+            Content is regularly verified against GitHub Copilot documentation to ensure accuracy
+            and completeness.
+          </p>
+        </div>
+
+        <div class="update-card">
+          <div class="update-icon">🎯</div>
+          <h3>Adaptive Learning Paths</h3>
+          <p>
+            Learning materials are organized across multiple dimensions: tracks, industries,
+            personas, and technologies.
+          </p>
+        </div>
+
+        <div class="update-card">
+          <div class="update-icon">📊</div>
+          <h3>Quality Metrics</h3>
+          <p>
+            Every piece of content is evaluated for accuracy, completeness, and relevance through
+            automated quality checks.
+          </p>
+        </div>
+      </div>
+
+      <section class="recent-changes">
+        <h2>Recent Platform Updates</h2>
+        <div class="changelog">
+          <div class="changelog-item">
+            <div class="changelog-date">Today</div>
+            <div class="changelog-content">
+              <h4>Platform Launched</h4>
+              <p>Welcome to the GitHub Copilot Learning Platform! 🎉</p>
+            </div>
+          </div>
+
+          <div class="changelog-item">
+            <div class="changelog-date">Today</div>
+            <div class="changelog-content">
+              <h4>Feature Explorer Available</h4>
+              <p>Discover all GitHub Copilot features in one place</p>
+            </div>
+          </div>
+
+          <div class="changelog-item">
+            <div class="changelog-date">Today</div>
+            <div class="changelog-content">
+              <h4>Learning Tracks Organized</h4>
+              <p>Eight structured learning tracks across different topics</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="next-updates">
+        <h2>What's Coming Next</h2>
+        <ul class="coming-soon">
+          <li>Interactive exercises and hands-on labs</li>
+          <li>Personalized learning recommendations</li>
+          <li>Progress tracking and certificates</li>
+          <li>Community contributions and feedback</li>
+          <li>Integration with GitHub Copilot CLI</li>
+          <li>Real-time code examples from the community</li>
+        </ul>
+      </section>
+    </section>
+
+    <section class="subscribe-section">
+      <h2>Stay Updated</h2>
+      <p>Check back regularly as new courses and features are added daily.</p>
+      <a href="/Learn-GHCP/health/" class="cta-button">View Platform Status →</a>
+    </section>
+  </main>
+</BaseLayout>
+
+<style scoped>
+  main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0;
+    color: #111827;
+  }
+
+  .subtitle {
+    font-size: 1.125rem;
+    color: #6b7280;
+    margin: 0.75rem 0 0 0;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .auto-generated-notice {
+    display: flex;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+    border: 2px solid #667eea;
+    border-radius: 0.75rem;
+  }
+
+  .notice-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  .notice-content h2 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.375rem;
+    color: #111827;
+  }
+
+  .notice-content p {
+    margin: 0 0 0.75rem 0;
+    color: #6b7280;
+    line-height: 1.6;
+  }
+
+  .notice-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .updates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .update-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+  }
+
+  .update-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .update-card h3 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.125rem;
+    color: #111827;
+  }
+
+  .update-card p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #6b7280;
+    line-height: 1.5;
+  }
+
+  .recent-changes {
+    padding: 2rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+  }
+
+  .recent-changes h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 1.5rem 0;
+    color: #111827;
+  }
+
+  .changelog {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .changelog-item {
+    display: flex;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .changelog-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .changelog-date {
+    min-width: 80px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6b7280;
+  }
+
+  .changelog-content h4 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1rem;
+    color: #111827;
+  }
+
+  .changelog-content p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+
+  .next-updates {
+    padding: 2rem;
+    background: #f9fafb;
+    border-radius: 0.5rem;
+  }
+
+  .next-updates h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    color: #111827;
+  }
+
+  .coming-soon {
+    margin: 0;
+    padding-left: 1.5rem;
+    list-style: none;
+  }
+
+  .coming-soon li {
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    color: #6b7280;
+    font-size: 0.95rem;
+    position: relative;
+  }
+
+  .coming-soon li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-weight: bold;
+  }
+
+  .subscribe-section {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 0.75rem;
+    color: white;
+  }
+
+  .subscribe-section h2 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.75rem;
+  }
+
+  .subscribe-section p {
+    margin: 0 0 1.5rem 0;
+    font-size: 1rem;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: white;
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 0.375rem;
+    transition: all 0.3s;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    main {
+      padding: 1rem;
+    }
+
+    .header h1 {
+      font-size: 1.875rem;
+    }
+
+    .auto-generated-notice {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .notice-icon {
+      margin: 0 auto;
+    }
+
+    .updates-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .changelog-item {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+</style>

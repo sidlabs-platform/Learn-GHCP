@@ -1,0 +1,108 @@
+---
+import DifficultyBadge from "./DifficultyBadge.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  difficulty: "beginner" | "intermediate" | "advanced";
+  track: string;
+  estimatedMinutes: number;
+  slug: string;
+}
+
+const { title, description, difficulty, track, estimatedMinutes, slug } =
+  Astro.props;
+---
+
+<div class="course-card">
+  <div class="card-header">
+    <DifficultyBadge level={difficulty} />
+    <span class="track-label">{track}</span>
+  </div>
+  <h3 class="card-title">{title}</h3>
+  <p class="card-description">{description}</p>
+  <div class="card-footer">
+    <span class="time-estimate">⏱️ {estimatedMinutes} min</span>
+    <a href={`/Learn-GHCP/courses/${slug}/`} class="card-link">
+      Learn more →
+    </a>
+  </div>
+</div>
+
+<style scoped>
+  .course-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    height: 100%;
+  }
+
+  .course-card:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .track-label {
+    padding: 0.25rem 0.75rem;
+    background-color: #f3f4f6;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #4b5563;
+    text-transform: uppercase;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #6b7280;
+    line-height: 1.5;
+    flex-grow: 1;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .time-estimate {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+
+  .card-link {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+
+  .card-link:hover {
+    color: #2563eb;
+  }
+</style>

@@ -1,0 +1,185 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const tracks = [
+  {
+    slug: "copilot-agent-skills",
+    title: "Copilot Agent Skills",
+    description:
+      "Learn the fundamentals of building and deploying AI agents with GitHub Copilot, including agent architecture, orchestration, and best practices.",
+    emoji: "🤖",
+  },
+  {
+    slug: "copilot-cli-every-command",
+    title: "Copilot CLI — Every Command",
+    description:
+      "Master the GitHub Copilot Command Line Interface (CLI) and learn how to leverage AI-powered assistance directly from your terminal.",
+    emoji: "⌨️",
+  },
+  {
+    slug: "copilot-cli-plugins-extensions",
+    title: "Copilot CLI Plugins & Extensions",
+    description:
+      "Extend Copilot CLI functionality with custom plugins and extensions to tailor the CLI experience to your workflow.",
+    emoji: "🔌",
+  },
+  {
+    slug: "copilot-agents-agentic-workflows",
+    title: "Copilot Agents & Agentic Workflows",
+    description:
+      "Dive deep into agentic workflows, multi-agent systems, and advanced patterns for autonomous AI-driven development.",
+    emoji: "🔄",
+  },
+  {
+    slug: "mcp-model-context-protocol",
+    title: "MCP (Model Context Protocol)",
+    description:
+      "Understand the Model Context Protocol (MCP) and how to use it to connect custom data sources and tools to Copilot.",
+    emoji: "📡",
+  },
+  {
+    slug: "industry-enterprise-use-cases",
+    title: "Industry & Enterprise Use Cases",
+    description:
+      "Explore real-world applications of GitHub Copilot across different industries and enterprise environments.",
+    emoji: "🏭",
+  },
+  {
+    slug: "copilot-for-every-persona",
+    title: "Copilot for Every Persona",
+    description:
+      "Learn how developers, architects, product managers, and other roles can leverage Copilot in their daily work.",
+    emoji: "👥",
+  },
+  {
+    slug: "copilot-across-technologies",
+    title: "Copilot Across Technologies",
+    description:
+      "Master GitHub Copilot across different programming languages, frameworks, and technology stacks.",
+    emoji: "🛠️",
+  },
+];
+---
+
+<BaseLayout title="Browse by Track">
+  <main class="tracks-page">
+    <section class="tracks-header">
+      <h1>Browse by Track</h1>
+      <p>
+        Explore our structured learning tracks. Each track focuses on a specific aspect of GitHub
+        Copilot.
+      </p>
+    </section>
+
+    <section class="tracks-grid">
+      {
+        tracks.map((track) => (
+          <a href={`/Learn-GHCP/tracks/${track.slug}/`} class="track-card">
+            <div class="track-emoji">{track.emoji}</div>
+            <h3 class="track-title">{track.title}</h3>
+            <p class="track-description">{track.description}</p>
+            <span class="track-link">Explore track →</span>
+          </a>
+        ))
+      }
+    </section>
+  </main>
+</BaseLayout>
+
+<style scoped>
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .tracks-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .tracks-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0 0 1rem 0;
+    color: #111827;
+  }
+
+  .tracks-header p {
+    font-size: 1.125rem;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .tracks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .track-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+  }
+
+  .track-card:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.15);
+    transform: translateY(-4px);
+  }
+
+  .track-emoji {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+  }
+
+  .track-title {
+    font-size: 1.375rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    color: #111827;
+  }
+
+  .track-description {
+    font-size: 0.95rem;
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0 0 1.5rem 0;
+    flex-grow: 1;
+  }
+
+  .track-link {
+    color: #3b82f6;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+
+  .track-card:hover .track-link {
+    color: #2563eb;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    main {
+      padding: 1rem;
+    }
+
+    .tracks-header h1 {
+      font-size: 1.875rem;
+    }
+
+    .tracks-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>

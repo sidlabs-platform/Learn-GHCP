@@ -1,0 +1,409 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Learn GitHub Copilot - Master AI-assisted coding skills through guided tracks and hands-on lessons.' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0969da" />
+    
+    <!-- Prefers color scheme -->
+    <meta name="color-scheme" content="light dark" />
+    
+    <title>{title} | Learn GitHub Copilot</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  
+  <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="sr-only">Skip to main content</a>
+    
+    <!-- Header -->
+    <header class="site-header">
+      <div class="header-container">
+        <div class="header-logo">
+          <a href="/" aria-label="Learn GitHub Copilot - Home">
+            <svg 
+              class="logo-icon" 
+              width="32" 
+              height="32" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              stroke-width="2" 
+              aria-hidden="true"
+            >
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+            </svg>
+            <span class="logo-text">Learn GitHub Copilot</span>
+          </a>
+        </div>
+
+        <nav class="header-nav" aria-label="Main navigation">
+          <ul class="nav-list">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/tracks" class="nav-link">Tracks</a></li>
+            <li><a href="/features" class="nav-link">Features</a></li>
+            <li><a href="/whats-new" class="nav-link">What's New</a></li>
+            <li><a href="/health" class="nav-link">Health</a></li>
+          </ul>
+        </nav>
+
+        <!-- Theme Toggle Button -->
+        <button 
+          id="theme-toggle" 
+          class="theme-toggle" 
+          aria-label="Toggle dark mode"
+          title="Toggle between light and dark mode"
+        >
+          <svg 
+            class="theme-icon theme-icon-light" 
+            width="20" 
+            height="20" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            stroke-width="2" 
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg 
+            class="theme-icon theme-icon-dark" 
+            width="20" 
+            height="20" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            stroke-width="2" 
+            aria-hidden="true"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <span class="sr-only">Toggle theme</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-container">
+        <p class="footer-credit">
+          <strong>Powered by GitHub Copilot</strong> • Auto-generated content • 
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer">Open Source</a>
+        </p>
+      </div>
+    </footer>
+
+    <!-- Theme Initialization Script (runs before page rendering) -->
+    <script is:inline>
+      (function() {
+        const THEME_KEY = 'theme';
+        const LIGHT = 'light';
+        const DARK = 'dark';
+        
+        function getInitialTheme() {
+          // Check localStorage for saved preference
+          const saved = localStorage.getItem(THEME_KEY);
+          if (saved === LIGHT || saved === DARK) {
+            return saved;
+          }
+          
+          // Check system preference
+          if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return DARK;
+          }
+          
+          // Default to light
+          return LIGHT;
+        }
+        
+        function applyTheme(theme) {
+          const html = document.documentElement;
+          html.setAttribute('data-theme', theme);
+          localStorage.setItem(THEME_KEY, theme);
+          
+          // Update theme-color meta tag
+          const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+          if (metaThemeColor) {
+            metaThemeColor.setAttribute('content', theme === DARK ? '#0d1117' : '#ffffff');
+          }
+        }
+        
+        // Apply theme immediately to prevent flash
+        const theme = getInitialTheme();
+        applyTheme(theme);
+        
+        // Store theme getter for use in other scripts
+        window.__getTheme = () => localStorage.getItem(THEME_KEY) || LIGHT;
+      })();
+    </script>
+
+    <!-- Theme Toggle Handler -->
+    <script>
+      const LIGHT = 'light';
+      const DARK = 'dark';
+      
+      const themeToggle = document.getElementById('theme-toggle');
+      
+      if (themeToggle) {
+        function updateTheme(theme) {
+          document.documentElement.setAttribute('data-theme', theme);
+          localStorage.setItem('theme', theme);
+          updateThemeIcon(theme);
+        }
+        
+        function updateThemeIcon(theme) {
+          const lightIcon = document.querySelector('.theme-icon-light');
+          const darkIcon = document.querySelector('.theme-icon-dark');
+          
+          if (lightIcon && darkIcon) {
+            if (theme === DARK) {
+              lightIcon.style.display = 'none';
+              darkIcon.style.display = 'block';
+            } else {
+              lightIcon.style.display = 'block';
+              darkIcon.style.display = 'none';
+            }
+          }
+        }
+        
+        // Set initial icon state
+        const currentTheme = localStorage.getItem('theme') || LIGHT;
+        updateThemeIcon(currentTheme);
+        
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+          const current = document.documentElement.getAttribute('data-theme') || LIGHT;
+          const next = current === LIGHT ? DARK : LIGHT;
+          updateTheme(next);
+        });
+        
+        // Listen for system theme changes
+        if (window.matchMedia) {
+          window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            const newTheme = e.matches ? DARK : LIGHT;
+            // Only update if user hasn't explicitly set a theme
+            const savedTheme = localStorage.getItem('theme');
+            if (!savedTheme) {
+              updateTheme(newTheme);
+            }
+          });
+        }
+      }
+    </script>
+
+    <style define:vars={{}}> 
+      /* Header Styles */
+      .site-header {
+        background-color: var(--color-bg);
+        border-bottom: 1px solid var(--color-border);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        transition: background-color var(--transition-normal), border-color var(--transition-normal);
+      }
+
+      .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: var(--space-md) var(--space-lg);
+        gap: var(--space-lg);
+      }
+
+      .header-logo a {
+        display: flex;
+        align-items: center;
+        gap: var(--space-sm);
+        color: var(--color-fg);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: var(--font-size-lg);
+        transition: opacity var(--transition-fast);
+      }
+
+      .header-logo a:hover {
+        opacity: 0.7;
+      }
+
+      .logo-icon {
+        color: var(--color-accent);
+      }
+
+      .logo-text {
+        display: none;
+      }
+
+      @media (min-width: var(--bp-md)) {
+        .logo-text {
+          display: inline;
+        }
+      }
+
+      .header-nav {
+        flex: 1;
+      }
+
+      .nav-list {
+        display: flex;
+        list-style: none;
+        gap: var(--space-lg);
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-link {
+        color: var(--color-fg);
+        text-decoration: none;
+        font-size: var(--font-size-sm);
+        font-weight: 500;
+        transition: color var(--transition-fast);
+        position: relative;
+      }
+
+      .nav-link:hover,
+      .nav-link:focus {
+        color: var(--color-accent);
+      }
+
+      .nav-link:focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 4px;
+        border-radius: var(--radius-sm);
+      }
+
+      .theme-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: var(--color-muted-bg);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        color: var(--color-fg);
+        cursor: pointer;
+        transition: background-color var(--transition-fast), border-color var(--transition-fast);
+      }
+
+      .theme-toggle:hover {
+        background-color: var(--color-accent);
+        border-color: var(--color-accent);
+        color: white;
+      }
+
+      .theme-toggle:focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 2px;
+      }
+
+      .theme-icon {
+        display: block;
+      }
+
+      /* Hide appropriate icon based on theme */
+      @media (prefers-color-scheme: light) {
+        .theme-icon-dark {
+          display: none;
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .theme-icon-light {
+          display: none;
+        }
+      }
+
+      /* Main Content */
+      main {
+        flex: 1;
+      }
+
+      /* Footer Styles */
+      .site-footer {
+        background-color: var(--color-muted-bg);
+        border-top: 1px solid var(--color-border);
+        margin-top: var(--space-3xl);
+        padding: var(--space-2xl) var(--space-lg);
+        color: var(--color-muted);
+        font-size: var(--font-size-sm);
+        transition: background-color var(--transition-normal), border-color var(--transition-normal);
+      }
+
+      .footer-container {
+        max-width: 1280px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .footer-credit {
+        margin: 0;
+      }
+
+      .footer-credit a {
+        color: var(--color-accent);
+        text-decoration: none;
+      }
+
+      .footer-credit a:hover {
+        text-decoration: underline;
+      }
+
+      /* Layout structure */
+      html {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+      }
+
+      /* Responsive header */
+      @media (max-width: var(--bp-md)) {
+        .header-container {
+          padding: var(--space-md);
+        }
+
+        .nav-list {
+          gap: var(--space-md);
+        }
+
+        .nav-link {
+          font-size: var(--font-size-xs);
+        }
+      }
+    </style>
+  </body>
+</html>

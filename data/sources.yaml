@@ -1,0 +1,84 @@
+# Source Registry - Auto-expanding list of content sources
+# New sources are auto-discovered and added by the Feature Discovery Agent
+# 
+# Schema:
+#   id: unique identifier for the source
+#   name: human-readable name
+#   url: source URL
+#   type: docs|blog|github_releases|marketplace
+#   crawlFrequency: daily|weekly|monthly
+#   lastCrawled: ISO 8601 timestamp or null
+#   status: active|inactive|archived
+#   confidenceScore: 0.0-1.0 (1.0 = official, 0.5+ = trusted)
+#   tags: array of topic tags
+
+sources:
+  - id: github-copilot-docs
+    name: "GitHub Copilot Official Documentation"
+    url: "https://docs.github.com/en/copilot"
+    type: docs
+    crawlFrequency: daily
+    lastCrawled: null
+    status: active
+    confidenceScore: 1.0
+    tags: [copilot, official]
+
+  - id: github-copilot-changelog
+    name: "GitHub Copilot Changelog"
+    url: "https://github.blog/changelog/label/copilot/"
+    type: blog
+    crawlFrequency: daily
+    lastCrawled: null
+    status: active
+    confidenceScore: 1.0
+    tags: [copilot, changelog, official]
+
+  - id: github-blog
+    name: "GitHub Blog"
+    url: "https://github.blog/"
+    type: blog
+    crawlFrequency: daily
+    lastCrawled: null
+    status: active
+    confidenceScore: 0.9
+    tags: [github, blog, official]
+
+  - id: copilot-cli-releases
+    name: "Copilot CLI GitHub Releases"
+    url: "https://github.com/github/copilot-cli/releases"
+    type: github_releases
+    crawlFrequency: daily
+    lastCrawled: null
+    status: active
+    confidenceScore: 1.0
+    tags: [copilot-cli, releases]
+
+  - id: vscode-copilot-extension
+    name: "VS Code Copilot Extension"
+    url: "https://marketplace.visualstudio.com/items?itemName=GitHub.copilot"
+    type: marketplace
+    crawlFrequency: weekly
+    lastCrawled: null
+    status: active
+    confidenceScore: 1.0
+    tags: [vscode, extension]
+
+  - id: github-copilot-trust-center
+    name: "GitHub Copilot Trust Center"
+    url: "https://resources.github.com/copilot-trust-center/"
+    type: docs
+    crawlFrequency: weekly
+    lastCrawled: null
+    status: active
+    confidenceScore: 0.95
+    tags: [copilot, trust, security]
+
+  - id: copilot-mcp-docs
+    name: "Model Context Protocol Documentation"
+    url: "https://modelcontextprotocol.io/"
+    type: docs
+    crawlFrequency: weekly
+    lastCrawled: null
+    status: active
+    confidenceScore: 0.95
+    tags: [mcp, protocol]

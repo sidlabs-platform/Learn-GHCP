@@ -1,0 +1,608 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { readFileSync } from "fs";
+import { existsSync } from "fs";
+import { resolve } from "path";
+
+// Read health stats at build time with fallback
+const healthStatsPath = resolve("data/health-stats.json");
+let healthStats = {
+  lastUpdated: new Date().toISOString(),
+  pipelineStatus: "operational",
+  contentFreshness: {
+    percentage: 100,
+    lastUpdate: new Date().toISOString(),
+    totalCourses: 0,
+  },
+  sourceHealth: {
+    healthy: 0,
+    warning: 0,
+    critical: 0,
+  },
+  qualityMetrics: {
+    averageScore: 0,
+    completionRate: 0,
+    accuracyScore: 0,
+  },
+};
+
+if (existsSync(healthStatsPath)) {
+  try {
+    const fileContent = readFileSync(healthStatsPath, "utf-8");
+    const data = JSON.parse(fileContent);
+    healthStats = { ...healthStats, ...data };
+  } catch (error) {
+    console.error("Error reading health-stats.json:", error);
+  }
+}
+
+// Helper to determine health color
+const getHealthColor = (
+  status: string
+): "green" | "yellow" | "red" | "gray" => {
+  switch (status.toLowerCase()) {
+    case "healthy":
+    case "operational":
+    case "active":
+      return "green";
+    case "warning":
+    case "degraded":
+      return "yellow";
+    case "critical":
+    case "down":
+      return "red";
+    default:
+      return "gray";
+  }
+};
+
+// Helper to get status emoji
+const getStatusEmoji = (status: string): string => {
+  switch (status.toLowerCase()) {
+    case "healthy":
+    case "operational":
+    case "active":
+      return "✅";
+    case "warning":
+    case "degraded":
+      return "⚠️";
+    case "critical":
+    case "down":
+      return "🔴";
+    default:
+      return "❓";
+  }
+};
+---
+
+<BaseLayout title="Health Dashboard">
+  <main class="health-page">
+    <section class="header">
+      <h1>Platform Health Dashboard</h1>
+      <p class="subtitle">
+        Real-time status of the GitHub Copilot Learning Platform
+      </p>
+      <div class="last-updated">
+        Last updated:{" "}
+        {
+          new Date(healthStats.lastUpdated).toLocaleString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          })
+        }
+      </div>
+    </section>
+
+    <!-- Overall Status -->
+    <section class="status-banner">
+      <div class={`status-indicator status-${getHealthColor(healthStats.pipelineStatus)}`}>
+        {getStatusEmoji(healthStats.pipelineStatus)}
+      </div>
+      <div class="status-content">
+        <h2>System Status</h2>
+        <p class="status-text">
+          {healthStats.pipelineStatus === "operational"
+            ? "✅ All systems operational"
+            : "⚠️ Some systems have issues"}
+        </p>
+      </div>
+    </section>
+
+    <!-- Key Metrics Grid -->
+    <section class="metrics-grid">
+      <div class="metric-card">
+        <h3 class="metric-title">Pipeline Status</h3>
+        <div class={`metric-value status-${getHealthColor(healthStats.pipelineStatus)}`}>
+          {getStatusEmoji(healthStats.pipelineStatus)}
+          <span>{healthStats.pipelineStatus}</span>
+        </div>
+        <p class="metric-description">Content generation and deployment pipeline</p>
+      </div>
+
+      <div class="metric-card">
+        <h3 class="metric-title">Content Freshness</h3>
+        <div class="metric-progress">
+          <div
+            class="progress-bar"
+            style={`--progress: ${healthStats.contentFreshness.percentage}%`}
+          />
+          <span class="progress-text">{healthStats.contentFreshness.percentage}%</span>
+        </div>
+        <p class="metric-description">
+          {healthStats.contentFreshness.totalCourses} courses available
+        </p>
+      </div>
+
+      <div class="metric-card">
+        <h3 class="metric-title">Quality Score</h3>
+        <div class="metric-progress">
+          <div
+            class="progress-bar"
+            style={`--progress: ${healthStats.qualityMetrics.averageScore}%`}
+          />
+          <span class="progress-text">{healthStats.qualityMetrics.averageScore}%</span>
+        </div>
+        <p class="metric-description">Average content quality rating</p>
+      </div>
+
+      <div class="metric-card">
+        <h3 class="metric-title">Accuracy</h3>
+        <div class="metric-progress">
+          <div
+            class="progress-bar"
+            style={`--progress: ${healthStats.qualityMetrics.accuracyScore}%`}
+          />
+          <span class="progress-text">{healthStats.qualityMetrics.accuracyScore}%</span>
+        </div>
+        <p class="metric-description">Content verification accuracy</p>
+      </div>
+    </section>
+
+    <!-- Source Health -->
+    <section class="detail-section">
+      <h2>Source Health Overview</h2>
+      <div class="source-health-grid">
+        <div class={`health-card health-green`}>
+          <div class="health-icon">✅</div>
+          <div class="health-count">{healthStats.sourceHealth.healthy || 0}</div>
+          <div class="health-label">Healthy</div>
+        </div>
+        <div class={`health-card health-yellow`}>
+          <div class="health-icon">⚠️</div>
+          <div class="health-count">{healthStats.sourceHealth.warning || 0}</div>
+          <div class="health-label">Warning</div>
+        </div>
+        <div class={`health-card health-red`}>
+          <div class="health-icon">🔴</div>
+          <div class="health-count">{healthStats.sourceHealth.critical || 0}</div>
+          <div class="health-label">Critical</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quality Metrics -->
+    <section class="detail-section">
+      <h2>Quality Metrics</h2>
+      <div class="quality-metrics">
+        <div class="metric-item">
+          <span class="metric-label">Completion Rate</span>
+          <div class="metric-bar-wrapper">
+            <div
+              class="metric-bar"
+              style={`width: ${healthStats.qualityMetrics.completionRate}%`}
+            />
+          </div>
+          <span class="metric-value">{healthStats.qualityMetrics.completionRate}%</span>
+        </div>
+
+        <div class="metric-item">
+          <span class="metric-label">Content Accuracy</span>
+          <div class="metric-bar-wrapper">
+            <div
+              class="metric-bar"
+              style={`width: ${healthStats.qualityMetrics.accuracyScore}%`}
+            />
+          </div>
+          <span class="metric-value">{healthStats.qualityMetrics.accuracyScore}%</span>
+        </div>
+
+        <div class="metric-item">
+          <span class="metric-label">Content Freshness</span>
+          <div class="metric-bar-wrapper">
+            <div
+              class="metric-bar"
+              style={`width: ${healthStats.contentFreshness.percentage}%`}
+            />
+          </div>
+          <span class="metric-value">{healthStats.contentFreshness.percentage}%</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- System Information -->
+    <section class="detail-section info-section">
+      <h2>System Information</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">Last Content Update</span>
+          <span class="info-value">
+            {
+              new Date(healthStats.contentFreshness.lastUpdate).toLocaleString(
+                "en-US",
+                {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                }
+              )
+            }
+          </span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Total Courses</span>
+          <span class="info-value">{healthStats.contentFreshness.totalCourses}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Pipeline Status</span>
+          <span class={`info-value status-${getHealthColor(healthStats.pipelineStatus)}`}>
+            {healthStats.pipelineStatus}
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Notice -->
+    <section class="footer-notice">
+      <p>
+        This dashboard provides real-time insights into platform health and content status.
+        Metrics are updated continuously by our automated monitoring systems.
+      </p>
+    </section>
+  </main>
+</BaseLayout>
+
+<style scoped>
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0;
+    color: #111827;
+  }
+
+  .subtitle {
+    font-size: 1.125rem;
+    color: #6b7280;
+    margin: 0.75rem 0 0 0;
+  }
+
+  .last-updated {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    margin-top: 1rem;
+  }
+
+  /* Status Banner */
+  .status-banner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f0fdf4 0%, #f3fef5 100%);
+    border: 2px solid #10b981;
+    border-radius: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .status-indicator {
+    font-size: 3rem;
+    flex-shrink: 0;
+  }
+
+  .status-content h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.375rem;
+    color: #111827;
+  }
+
+  .status-text {
+    margin: 0;
+    color: #6b7280;
+  }
+
+  /* Metrics Grid */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .metric-card {
+    padding: 1.5rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+  }
+
+  .metric-title {
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .metric-value {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+
+  .metric-value span {
+    text-transform: capitalize;
+  }
+
+  .status-green {
+    color: #10b981;
+  }
+
+  .status-yellow {
+    color: #f59e0b;
+  }
+
+  .status-red {
+    color: #ef4444;
+  }
+
+  .status-gray {
+    color: #9ca3af;
+  }
+
+  .metric-progress {
+    position: relative;
+    margin-bottom: 0.75rem;
+  }
+
+  .progress-bar {
+    --progress: 0%;
+    width: 100%;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+  }
+
+  .progress-bar::after {
+    content: "";
+    display: block;
+    width: var(--progress);
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.3s ease;
+  }
+
+  .progress-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #667eea;
+  }
+
+  .metric-description {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #9ca3af;
+  }
+
+  /* Source Health Grid */
+  .detail-section {
+    margin-bottom: 2rem;
+  }
+
+  .detail-section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 1.5rem 0;
+    color: #111827;
+  }
+
+  .source-health-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .health-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    text-align: center;
+  }
+
+  .health-green {
+    background: #f0fdf4;
+    border: 2px solid #10b981;
+  }
+
+  .health-yellow {
+    background: #fffbf0;
+    border: 2px solid #f59e0b;
+  }
+
+  .health-red {
+    background: #fef2f2;
+    border: 2px solid #ef4444;
+  }
+
+  .health-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .health-count {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .health-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+  }
+
+  /* Quality Metrics */
+  .quality-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .metric-item {
+    display: grid;
+    grid-template-columns: 150px 1fr 100px;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.375rem;
+  }
+
+  .metric-label {
+    font-weight: 600;
+    color: #111827;
+    font-size: 0.95rem;
+  }
+
+  .metric-bar-wrapper {
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 0.25rem;
+    overflow: hidden;
+  }
+
+  .metric-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.3s ease;
+    border-radius: 0.25rem;
+  }
+
+  .metric-value {
+    text-align: right;
+    font-weight: 600;
+    color: #667eea;
+  }
+
+  /* Info Section */
+  .info-section {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+  }
+
+  .info-section h2 {
+    margin-top: 0;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .info-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .info-value {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  /* Footer Notice */
+  .footer-notice {
+    text-align: center;
+    padding: 1.5rem;
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+
+  .footer-notice p {
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    main {
+      padding: 1rem;
+    }
+
+    .header h1 {
+      font-size: 1.875rem;
+    }
+
+    .status-banner {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .metrics-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .source-health-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .metric-item {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .metric-value {
+      text-align: left;
+    }
+
+    .info-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

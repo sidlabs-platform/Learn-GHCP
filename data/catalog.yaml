@@ -1,0 +1,16 @@
+# Course Catalog - Auto-populated by the Course Generation Agent
+# Maps courses to features, tracks, difficulty levels, and metadata
+#
+# Schema for courses:
+#   id: unique identifier for the course
+#   name: course title
+#   description: brief course description
+#   features: array of feature IDs covered in this course
+#   difficulty: beginner|intermediate|advanced
+#   duration: estimated hours
+#   track: learning track (core|cli|agents|extensibility|github)
+#   tags: array of topic tags
+#   prerequisites: array of prerequisite course IDs
+#   source: source ID where course content is from
+
+courses: []

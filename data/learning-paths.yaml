@@ -1,0 +1,14 @@
+# Learning Paths - Auto-generated chains of courses across difficulty levels
+# Updated by the Course Generation Agent
+#
+# Schema for paths:
+#   id: unique identifier for the learning path
+#   name: path title
+#   description: path description
+#   difficulty: beginner|intermediate|advanced
+#   track: learning track this path belongs to
+#   courses: ordered array of course IDs to complete this path
+#   estimatedDuration: total hours for complete path
+#   learningOutcomes: array of learning objectives
+
+paths: []

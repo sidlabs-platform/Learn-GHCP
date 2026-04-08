@@ -1,0 +1,335 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SearchBar from "../components/SearchBar.astro";
+---
+
+<BaseLayout title="Learn GitHub Copilot">
+  <main class="landing-page">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title">Learn GitHub Copilot</h1>
+        <p class="hero-tagline">
+          Master AI-powered development from beginner to advanced — auto-generated, always up-to-date
+        </p>
+      </div>
+    </section>
+
+    <!-- Search Bar -->
+    <section class="search-section">
+      <SearchBar />
+    </section>
+
+    <!-- Entry Points Section -->
+    <section class="entry-points">
+      <h2>Choose Your Starting Point</h2>
+      <div class="entry-points-grid">
+        <a href="/Learn-GHCP/courses/beginner/" class="entry-card beginner">
+          <div class="entry-emoji">🟢</div>
+          <h3>I'm a Beginner</h3>
+          <p>Start your journey with the basics</p>
+        </a>
+        <a href="/Learn-GHCP/courses/intermediate/" class="entry-card intermediate">
+          <div class="entry-emoji">🟡</div>
+          <h3>I'm Intermediate</h3>
+          <p>Deepen your skills and expertise</p>
+        </a>
+        <a href="/Learn-GHCP/courses/advanced/" class="entry-card advanced">
+          <div class="entry-emoji">🔴</div>
+          <h3>I'm Advanced</h3>
+          <p>Master complex patterns and workflows</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Browse Sections -->
+    <section class="browse-section">
+      <h2>Browse & Explore</h2>
+      <div class="browse-grid">
+        <a href="/Learn-GHCP/tracks/" class="browse-card">
+          <div class="browse-icon">🚂</div>
+          <h3>Browse by Track</h3>
+          <p>Learn structured learning paths across different Copilot topics</p>
+        </a>
+        <a href="/Learn-GHCP/industry/" class="browse-card">
+          <div class="browse-icon">🏢</div>
+          <h3>Browse by Industry</h3>
+          <p>Find courses tailored to your industry and use cases</p>
+        </a>
+        <a href="/Learn-GHCP/persona/" class="browse-card">
+          <div class="browse-icon">👤</div>
+          <h3>Browse by Persona</h3>
+          <p>Explore learning paths by role and responsibility</p>
+        </a>
+        <a href="/Learn-GHCP/technology/" class="browse-card">
+          <div class="browse-icon">⚙️</div>
+          <h3>Browse by Technology</h3>
+          <p>Learn Copilot for your preferred tech stack</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Quick Links Section -->
+    <section class="quick-links">
+      <h2>Quick Access</h2>
+      <div class="quick-links-grid">
+        <a href="/Learn-GHCP/whats-new/" class="quick-link-card">
+          <div class="link-icon">✨</div>
+          <h4>What's New</h4>
+          <p>Latest updates and new courses</p>
+        </a>
+        <a href="/Learn-GHCP/features/" class="quick-link-card">
+          <div class="link-icon">🔍</div>
+          <h4>Feature Explorer</h4>
+          <p>Discover all Copilot features</p>
+        </a>
+        <a href="/Learn-GHCP/health/" class="quick-link-card">
+          <div class="link-icon">📊</div>
+          <h4>Health Dashboard</h4>
+          <p>Platform status and metrics</p>
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style scoped>
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  /* Hero Section */
+  .hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 1rem;
+    color: white;
+    margin-bottom: 4rem;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin: 0 0 1rem 0;
+  }
+
+  .hero-tagline {
+    font-size: 1.25rem;
+    margin: 0;
+    opacity: 0.95;
+    line-height: 1.6;
+  }
+
+  /* Search Section */
+  .search-section {
+    margin-bottom: 4rem;
+  }
+
+  /* Entry Points */
+  .entry-points {
+    margin-bottom: 4rem;
+  }
+
+  .entry-points h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #111827;
+  }
+
+  .entry-points-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .entry-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    background: white;
+  }
+
+  .entry-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .entry-card.beginner:hover {
+    border-color: #10b981;
+    background: #f0fdf4;
+  }
+
+  .entry-card.intermediate:hover {
+    border-color: #f59e0b;
+    background: #fffbf0;
+  }
+
+  .entry-card.advanced:hover {
+    border-color: #ef4444;
+    background: #fef2f2;
+  }
+
+  .entry-emoji {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .entry-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .entry-card p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 0.95rem;
+  }
+
+  /* Browse Section */
+  .browse-section {
+    margin-bottom: 4rem;
+  }
+
+  .browse-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #111827;
+  }
+
+  .browse-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .browse-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: inherit;
+    background: white;
+    transition: all 0.3s ease;
+  }
+
+  .browse-card:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .browse-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .browse-card h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    color: #111827;
+  }
+
+  .browse-card p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* Quick Links */
+  .quick-links {
+    padding: 3rem 0;
+  }
+
+  .quick-links h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #111827;
+  }
+
+  .quick-links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .quick-link-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    background: white;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+  }
+
+  .quick-link-card:hover {
+    background: #f9fafb;
+    border-color: #3b82f6;
+  }
+
+  .link-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .quick-link-card h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 0.35rem 0;
+    color: #111827;
+  }
+
+  .quick-link-card p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 0.875rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    main {
+      padding: 1rem;
+    }
+
+    .hero {
+      padding: 2rem 1rem;
+    }
+
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .hero-tagline {
+      font-size: 1rem;
+    }
+
+    .entry-points-grid,
+    .browse-grid,
+    .quick-links-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

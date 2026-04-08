@@ -1,0 +1,50 @@
+name: "Stage 5: Self-Maintenance"
+
+on:
+  schedule:
+    - cron: '0 3 * * 0'  # Weekly on Sunday at 3 AM UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  maintain:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run freshness audit
+        run: node agents/maintenance/freshness.js
+
+      - name: Run link checker
+        run: node agents/maintenance/links.js
+
+      - name: Run code revalidation
+        run: node agents/maintenance/revalidate-code.js
+
+      - name: Run source health check
+        run: node agents/maintenance/source-health.js
+
+      - name: Commit maintenance updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git diff --staged --quiet || git commit -m "chore: self-maintenance updates [maintenance-agent]"
+          git push
+
+      - name: Generate health report
+        run: node agents/maintenance/health-report.js
