@@ -3,7 +3,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://yourusername.github.io/Learn-GHCP',
+  site: 'https://sidlabs-platform.github.io',
   base: '/Learn-GHCP',
   output: 'static',
   integrations: [
